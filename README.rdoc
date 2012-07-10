@@ -1,3 +1,15 @@
 = find_user_contrib
 
-Description goes here
+Find Issues that a user id ha contributed to, returned as JSON / XML depending on format specifier.
+
+== Contribution is determined by any of the following.
+* Issue created by
+* Issue assigned to
+* Journal entries
+  * anything which has the user_id specified.
+
+== Usage
+
+ /issuescontributedto/:user_id
+
+(URL format to be reviewed post alpha.)
