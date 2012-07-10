@@ -5,8 +5,7 @@ Find Issues that a user id ha contributed to, returned as JSON / XML depending o
 == Contribution is determined by any of the following.
 * Issue created by
 * Issue assigned to
-* Journal entries
-  * anything which has the user_id specified.
+* Issue Journal entries which have the user_id specified. (notes, time log, status change, etc.)
 
 == Usage
 
