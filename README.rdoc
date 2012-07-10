@@ -10,6 +10,6 @@ Find Issues that a user id ha contributed to, returned as JSON / XML depending o
 
 == Usage
 
- /issuescontributedto/:user_id
+ /issuescontributedto/:user_id[.xml|.json]
 
 (URL format to be reviewed post alpha.)
