@@ -1,0 +1,2 @@
+module ContributedHelper
+end
