@@ -1,3 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.contributed_find 'contributed', :controller => 'contributed', :action => 'find', :method => 'post'
+  # /contributed.json?api_key=[key]&user_id=2&project_id=2
+  map.contributed_find 'contributed.:format', :controller => 'contributed', :action => 'find'
 end
