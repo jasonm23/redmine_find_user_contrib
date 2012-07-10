@@ -6,7 +6,7 @@ class ContributedController < ApplicationController
 # POST /contributed
   def find
 
-    user_id = params[:user_id].to_i
+    user_id = params[:user_id].to_i unless params[:user_id].blank?
 
     if User.exists?(user_id)
 
