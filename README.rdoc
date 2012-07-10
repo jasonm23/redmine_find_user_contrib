@@ -9,6 +9,12 @@ Find Issues that a user id ha contributed to, returned as JSON / XML depending o
 
 == Usage
 
- http://redmine_host/issuescontributedto/:user_id[.xml|.json]
+ http://redmine_host/contributed/:user_id.json
 
 (URL format to be reviewed post alpha.)
+
+== Things to do
+
+* Add api key authentication
+* Add Project id filter
+ 
