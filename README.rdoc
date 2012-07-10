@@ -1,3 +1,14 @@
 = find_user_contrib
 
-Description goes here
+Find Issues that a user id ha contributed to, returned as JSON / XML depending on format specifier.
+
+== Contribution is determined by any of the following.
+* Issue created by
+* Issue assigned to
+* Issue Journal entries which have the user_id specified. (notes, time log, status change, etc.)
+
+== Usage
+
+ http://redmine_host/issuescontributedto/:user_id[.xml|.json]
+
+(URL format to be reviewed post alpha.)
