@@ -6,6 +6,8 @@ class ContributedController < ApplicationController
 # POST /contributed
   def find
 
+    @issues = "empty"
+    
     user_id = params[:user_id].to_i unless params[:user_id].blank?
 
     if User.exists?(user_id)
@@ -25,15 +27,11 @@ class ContributedController < ApplicationController
       if Project.exists?(project_id)
         select.sub!(/where/, "where issues.project_id = #{project.id} and ")
       end
-
       @issues = Issue.find_by_sql(select)
-
-      render :json @issues.to_json and return
 
     end
 
-    render :nothing, :status => 404 # Not found
-
+    render json: @issues.to_json 
+    
   end
-
 end
