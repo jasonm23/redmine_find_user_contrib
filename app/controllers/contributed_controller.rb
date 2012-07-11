@@ -3,8 +3,8 @@ class ContributedController < ApplicationController
   include ContributedHelper
 
   unloadable
-  accept_api_auth :all
-  before_filter :authorize
+  before_filter :find_project, :authorize, :only => [:find]
+  accept_api_auth :find
   
 # POST /contributed
   def find
@@ -28,7 +28,7 @@ class ContributedController < ApplicationController
       project_id = params[:project_id].to_i
 
       if Project.exists?(project_id)
-        select.sub!(/where/, "where issues.project_id = #{project.id} and ")
+        select.sub!(/where/, "where issues.project_id = #{project_id} and ")
       end
 
       @issues = Issue.find_by_sql(select)
@@ -37,6 +37,13 @@ class ContributedController < ApplicationController
 
     render json: @issues.to_json 
     
+  end
+  
+  private
+
+  def find_project
+    @project = Project.find(params[:project_id])
+    @user = User.find(params[:user_id])
   end
 
 end
