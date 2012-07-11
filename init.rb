@@ -7,4 +7,5 @@ Redmine::Plugin.register :redmine_find_user_contrib do
   version '0.1.0'
   url 'https://github.com/jasonm23/redmine_find_user_contrib'
   author_url 'https://github.com/jasonm23/'
+  permission :find_contributed, :contributed => :find
 end

@@ -1,18 +1,21 @@
 class ContributedController < ApplicationController
 
+  include ContributedHelper
+
   unloadable
   accept_api_auth :all
+  before_filter :authorize
   
 # POST /contributed
   def find
-
-    @issues = "empty"
+  
+    @issues = []
     
     user_id = params[:user_id].to_i unless params[:user_id].blank?
 
     if User.exists?(user_id)
 
-      select <<-SQL 
+      select = <<-SQL 
           select #{issue_fields} from issues,journals
           where issues.author_id      = #{user_id} 
           or    issues.assigned_to_id = #{user_id} 
@@ -27,6 +30,7 @@ class ContributedController < ApplicationController
       if Project.exists?(project_id)
         select.sub!(/where/, "where issues.project_id = #{project.id} and ")
       end
+
       @issues = Issue.find_by_sql(select)
 
     end
@@ -34,4 +38,5 @@ class ContributedController < ApplicationController
     render json: @issues.to_json 
     
   end
+
 end
