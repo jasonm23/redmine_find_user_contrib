@@ -1,8 +1,9 @@
 = find_user_contrib
 
-Find Issues that a user id ha contributed to, returned as JSON / XML depending on format specifier.
+Find Project Issues that a user has contributed to, data is returned as JSON tree.
 
 == Contribution is determined by any of the following.
+
 * Issue created by
 * Issue assigned to
 * Issue Journal entries which have the user_id specified. (notes, time log, status change, etc.)
@@ -11,10 +12,7 @@ Find Issues that a user id ha contributed to, returned as JSON / XML depending o
 
   http://redmine_host/contributed.json?key=redmineapikey&user_id=1&project_id=1
 
-(URL format to be reviewed post alpha.)
+== Settings
 
-== Things to do
+  http://redmine_host/roles/report
 
-* Add api key authentication
-* Add Project id filter
- 
