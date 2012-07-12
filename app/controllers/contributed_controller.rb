@@ -35,7 +35,7 @@ class ContributedController < ApplicationController
 
     end
 
-    render json: @issues.to_json 
+    render :json => @issues.to_json 
     
   end
   
