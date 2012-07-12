@@ -5,22 +5,22 @@ class ContributedController < ApplicationController
   unloadable
   before_filter :find_project, :authorize, :only => [:find]
   accept_api_auth :find
-  
+
 # POST /contributed
   def find
-  
+
     @issues = []
-    
+
     user_id = params[:user_id].to_i unless params[:user_id].blank?
 
     if User.exists?(user_id)
 
-      select = <<-SQL 
+      select = <<-SQL
           select #{issue_fields} from issues,journals
-          where issues.author_id      = #{user_id} 
-          or    issues.assigned_to_id = #{user_id} 
-          or  ( issues.id             = journals.journalized_id 
-                and 
+          where issues.author_id      = #{user_id}
+          or    issues.assigned_to_id = #{user_id}
+          or  ( issues.id             = journals.journalized_id
+                and
                 journals.user_id      = #{user_id} )
       SQL
 
@@ -35,10 +35,10 @@ class ContributedController < ApplicationController
 
     end
 
-    render :json => @issues.to_json 
-    
+    render :json => @issues.to_json
+
   end
-  
+
   private
 
   def find_project
