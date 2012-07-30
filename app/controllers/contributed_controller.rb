@@ -15,8 +15,6 @@ class ContributedController < ApplicationController
 
     if User.exists?(user_id)
 
-      
-
       select = <<-SQL
           select distinct #{issue_fields} from issues,journals
           where issues.author_id      = #{user_id}
