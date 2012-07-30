@@ -15,8 +15,10 @@ class ContributedController < ApplicationController
 
     if User.exists?(user_id)
 
+      
+
       select = <<-SQL
-          select #{issue_fields} from issues,journals
+          select distinct #{issue_fields} from issues,journals
           where issues.author_id      = #{user_id}
           or    issues.assigned_to_id = #{user_id}
           or  ( issues.id             = journals.journalized_id
@@ -45,7 +47,7 @@ class ContributedController < ApplicationController
       response.content_type = 'application/javascript'
     end
     
-    respond_with do |format|
+    respond_to do |format|
       format.json  {render :json => json}
       format.js    {render :json => json}
     end
