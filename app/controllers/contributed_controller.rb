@@ -6,7 +6,7 @@ class ContributedController < ApplicationController
   before_filter :find_project, :authorize, :only => [:find]
   accept_api_auth :find
 
-# POST /contributed
+  # POST /contributed
   def find
 
     @issues = []
@@ -35,7 +35,20 @@ class ContributedController < ApplicationController
 
     end
 
-    render :json => @issues.to_json
+    json = @issues.to_json
+
+    # JSON / JSON-P
+    callback = (request.params[:callback] || request.params[:jsonp]).to_s.gsub(/[^a-zA-Z0-9_]/, '')
+    
+    if callback.present?
+      json = "#{callback}(#{json})"
+      response.content_type = 'application/javascript'
+    end
+    
+    respond_with do |format|
+      format.json  {render :json => json}
+      format.js    {render :json => json}
+    end
 
   end
 
