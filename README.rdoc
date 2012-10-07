@@ -1,8 +1,10 @@
 = find_user_contrib
 
-Find Project Issues that a user has contributed to, data is returned as JSON tree.
+Find Project Issues that a user has contributed to, data is returned as JSON tree, optionally wrapped as .js/JSONP.
 
 == Change log
+
+* 0.1.4 - Redmine 2.0 support (Rails 3.x)
 
 * 0.1.3 - added JSONP support, 
 
@@ -14,27 +16,22 @@ Find Project Issues that a user has contributed to, data is returned as JSON tre
 
 * Issue created by
 * Issue assigned to
-* Issue Journal entries which have the user_id specified. (notes, time log, status change, etc.)
+* Issue Journal entries which have the user_id specified. (notes, time log, status change, etc. etc.)
 
 == Usage
   http://redmine_host/contributed.json?key=redmineapikey&user_id=1&project_id=1
 
-For JSONP support add the query parameter jsonp or callback, eg.
+For JSONP support (ie. json wrapped in .js) change the filetype to .js and add the query parameter jsonp or callback, eg.
 
- http://redmine/contributed.json?key=apikey&user_id=1&project_id=1&callback=func
+ http://redmine/contributed.js?key=apikey&user_id=1&project_id=1&callback=func
 
 or
 
- http://redmine/contributed.json?key=apikey&user_id=1&project_id=1&jsonp=func
-
-
-Alternatively you can use 
-
- contributed.js 
-
-For more readability. (although using .js without a jsonp or callback parameter will still render json format.) 
+ http://redmine/contributed.js?key=apikey&user_id=1&project_id=1&jsonp=func
 
 == Settings
+
+Manage permissions in:
 
   http://redmine_host/roles/report
 
