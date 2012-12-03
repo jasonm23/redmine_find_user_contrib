@@ -1,6 +1,7 @@
 class ContributedController < ApplicationController
 
   include ContributedHelper
+  include JsonpHelper
 
   unloadable
   before_filter :find_project
@@ -9,17 +10,13 @@ class ContributedController < ApplicationController
 
   # POST /contributed
   def find
-
     @issues = nil
-
     user_id = params[:user_id].to_i unless params[:user_id].blank?
 
     if User.exists?(user_id)
-
       issues       = Issue.arel_table
       time_entries = TimeEntry.arel_table
       journals     = Journal.arel_table
-
       @issues = Issue.
         includes(
                  [:journals, 
@@ -34,6 +31,7 @@ class ContributedController < ApplicationController
               or(time_entries[:user_id].
                  eq(user_id))
               )
+
       # Filter on Project id
       project_id = params[:project_id].to_i
 
@@ -57,16 +55,8 @@ class ContributedController < ApplicationController
       
     end
 
-    json = @issues.to_json(:include => [:time_entries, :journals])
+    json = json_or_jsonp @issues.to_json(:include => [:time_entries, :journals]), request
 
-    # JSON / JSON-P
-    callback = (request.params[:callback] || request.params[:jsonp]).to_s.gsub(/[^a-zA-Z0-9_]/, '')
-    
-    if callback.present?
-      json = "#{callback}(#{json})"
-      response.content_type = 'application/javascript'
-    end
-    
     respond_to do |format|
       format.json  {render :json => json}
       format.js    {render :json => json}

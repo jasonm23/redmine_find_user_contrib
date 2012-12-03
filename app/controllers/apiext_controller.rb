@@ -1,28 +1,28 @@
 class ApiextController < ApplicationController
 
-  # include ApiExtHelper
+  include JsonpHelper
+  
   unloadable
   accept_api_auth :apikey, :memberlist
 
-  def apikey_js
-    json = "{\"apikey\": #{User.current.api_key}}"
-    js = "callback(){ return #{json}; }"
-    respond_to do |format|
-      format.js   { render :js => js }
-    end
-  end
+  def apikey
 
-  def apikey_json
-    json = "{\"apikey\": #{User.current.api_key}}"
+    json = json_or_jsonp "{\"apikey\": #{User.current.api_key}}", request
+    
     respond_to do |format|
-      format.json { render :json => json }
+      format.json  {render :json => json}
+      format.js    {render :json => json}
     end
   end
 
   def memberlist
+    
+    json = json_or_jsonp "{\"message\": \"Not yet implemented\"}", request
+    
     respond_to do |format|
-      format.api
-    end    
+      format.json  {render :json => json}
+      format.js    {render :json => json}
+    end
   end
 
 end
