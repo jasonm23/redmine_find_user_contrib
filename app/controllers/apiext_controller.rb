@@ -13,16 +13,18 @@ class ApiextController < ApplicationController
       format.json  {render :json => json}
       format.js    {render :json => json}
     end
+
   end
 
   def memberlist
-    
-    json = json_or_jsonp "{\"message\": \"Not yet implemented\"}", request
-    
-    respond_to do |format|
-      format.json  {render :json => json}
-      format.js    {render :json => json}
-    end
+    @project_id = params[:project_id]
+    @role_id = params[:role_id]
+    members = Member.arel_table
+    member_roles = MemberRole.arel_table
+    @members = Member.includes(:member_roles).
+      where(
+            members[:project_id].eq(@project_id).
+            and(member_roles[:role_id]. eq(@role_id)))
   end
 
 end
